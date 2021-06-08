@@ -1,56 +1,71 @@
 <template>
   <div id="app">
-    <button v-for="(box, i) in boxes" id="box" @click="reveal(box)" :key="i">
-      {{ isRevealed ? box.item.name : box.item.name }}
-    </button>
+    <app-bars style="position: absolute; width: 100%; z-index: -1" />
+    <div id="main">
+      <!--   The Welcome Screen   -->
+      <div v-if="scene === AppScene.welcome">
+        <app-button @click="$store.commit('play')">Play</app-button>
+      </div>
 
-    <p>Won Items</p>
-    <ul>
-      <li v-for="(message, i) in messages" :key="i">{{ message }}</li>
-    </ul>
+      <!--   The screen to make choices   -->
+      <div v-else-if="scene === AppScene.toMakeChoice">
+        <app-boxes />
+      </div>
 
-    <button @click="reset">Reset</button>
+      <!--         The screen to make choices   -->
+      <div v-else>
+        <app-popup />
+      </div>
+    </div>
+
+    <app-bars
+      prolongs
+      style="position: absolute; width: 100%; bottom: 0; z-index: -1"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import Game from "@/models/game";
-import { items } from "@/data/items";
-import Box from "@/models/box";
+import AppBars from "@/components/AppBars.vue";
+import AppButton from "@/components/AppButton.vue";
+import { AppScene, AppState } from "@/store/appStore";
+import AppBoxes from "@/components/AppBoxes.vue";
+import AppPopup from "@/components/AppPopup.vue";
 
-@Component({ name: "App" })
+@Component({
+  name: "App",
+  components: { AppPopup, AppBoxes, AppButton, AppBars },
+})
 export default class App extends Vue {
-  boxes = new Game(items).run(9);
-  messages: string[] = [];
-  isRevealed = false;
+  state = this.$store.state as AppState;
+  AppScene = AppScene;
 
-  reveal(box: Box) {
-    this.isRevealed = true;
-    this.messages.push(box.item.name);
-  }
-
-  reset() {
-    this.isRevealed = false;
-    this.boxes = new Game(items).run(9);
+  get scene(): AppScene {
+    return this.state.scene;
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+body {
+  margin: 0;
 }
 
-#box {
-  padding: 50px;
-  display: inline-block;
-  background-color: lightcoral;
-  margin: 20px;
+#app {
+  font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
+  height: 100vh;
+}
+
+#main {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 </style>
