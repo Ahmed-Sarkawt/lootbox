@@ -3,19 +3,18 @@
     <app-bars style="position: absolute; width: 100%; z-index: -1" />
     <div id="main">
       <!--   The Welcome Screen   -->
-      <div v-if="scene === AppScene.welcome">
-        <app-button @click="$store.commit('play')">Play</app-button>
-      </div>
+      <app-button
+        v-if="scene === AppScene.welcome"
+        @click="$store.commit('play')"
+      >
+        Play
+      </app-button>
 
       <!--   The screen to make choices   -->
-      <div v-else-if="scene === AppScene.toMakeChoice">
-        <app-boxes />
-      </div>
+      <app-boxes v-else />
 
       <!--         The screen to make choices   -->
-      <div v-else>
-        <app-popup />
-      </div>
+      <app-popup v-if="scene === AppScene.choiceMade" />
     </div>
 
     <app-bars

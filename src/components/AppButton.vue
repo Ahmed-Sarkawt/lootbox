@@ -23,14 +23,15 @@ button {
   font-family: Jumpman;
   border-radius: 4px;
   border: none;
-  opacity: 0.8;
+  opacity: 0.9;
   display: inline-block;
   text-transform: uppercase;
   text-orientation: revert;
 }
 
 button:hover {
-  opacity: 0.5;
+  opacity: 0.8;
+  cursor: pointer;
 }
 
 button:active {

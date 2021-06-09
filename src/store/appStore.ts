@@ -1,5 +1,6 @@
 import Box from "@/models/box";
 import { appGame } from "@/models/game";
+import { shuffle } from "@/utils/utils";
 
 export enum AppScene {
   welcome = "welcome",
@@ -18,19 +19,24 @@ export const AppStore = {
   state: defaultState(),
 
   mutations: {
-    play(state: AppState) {
+    play(state: AppState): void {
       state.scene = AppScene.toMakeChoice;
       state.boxes = appGame.run();
       state.isRevealed = false;
     },
 
-    choose(state: AppState, boxIndex: number) {
+    choose(state: AppState, boxIndex: number): void {
       state.scene = AppScene.choiceMade;
       state.isRevealed = true;
       state.chosenBoxIndex = boxIndex;
     },
 
-    reset(state: AppState) {
+    shuffle(state: AppState): void {
+      const boxes = [...state.boxes];
+      state.boxes = shuffle(boxes);
+    },
+
+    reset(state: AppState): void {
       state.scene = AppScene.welcome;
       state.chosenBoxIndex = null;
     },

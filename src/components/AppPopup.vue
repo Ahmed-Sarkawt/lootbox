@@ -2,14 +2,17 @@
   <div class="background">
     <div class="content">
       <p class="title">Congratulations!!</p>
+      <p class="prize">
+        {{ $store.state.boxes[$store.state.chosenBoxIndex].item.name }}
+      </p>
       <app-button @click="$store.commit('reset')">Play Again</app-button>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import AppButton from "@/components/AppButton";
 import { Component, Vue } from "vue-property-decorator";
+import AppButton from "@/components/AppButton.vue";
 
 @Component({
   name: "AppPopup",
@@ -20,7 +23,15 @@ export default class AppPopup extends Vue {}
 
 <style scoped>
 .title {
-  margin: 24px 0px;
+  font-size: 24pt;
+  color: #f9ab18;
+  font-weight: bold;
+  margin: 24px 0;
+}
+
+.prize {
+  font-size: 18pt;
+  font-weight: bold;
 }
 
 .content {
@@ -29,9 +40,6 @@ export default class AppPopup extends Vue {}
   background-color: white;
   margin: auto;
   border-radius: 24px;
-  font-size: 24pt;
-  color: #f9ab18;
-  font-weight: bold;
   text-align: center;
 }
 

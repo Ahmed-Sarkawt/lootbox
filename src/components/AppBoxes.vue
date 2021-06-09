@@ -1,19 +1,30 @@
 <template>
   <div class="window">
     <p class="title">Open a Chest to Win a Prize</p>
-    <div class="boxes">
+    <transition-group tag="div" name="box" class="boxes">
       <img
         v-for="(box, i) in $store.state.boxes"
-        :key="i"
+        :key="box.id"
         :src="require('../assets/gift-box.svg')"
         class="box"
         width="30%"
         alt="gift box"
         @click="$store.commit('choose', i)"
       />
-    </div>
+    </transition-group>
   </div>
 </template>
+
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+
+@Component({ name: "AppBoxes" })
+export default class AppBoxes extends Vue {
+  mounted() {
+    setTimeout(() => this.$store.commit("shuffle"), 200);
+  }
+}
+</script>
 
 <style scoped>
 .window {
@@ -33,6 +44,10 @@
 
 .box {
   margin-block: 10px;
+}
+
+.box-move {
+  transition: transform 0.5s;
 }
 
 .title {
