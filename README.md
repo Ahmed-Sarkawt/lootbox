@@ -1,4 +1,7 @@
-# lootbox
+# HITEX Arabella Lootbox Game
+
+A simple lootbox game developed for the Arabela booth in HITEX Tech Exhibit 2021.
+See [Demo](https://muyabb.github.io/lootbox/)
 
 ## Project setup
 ```
