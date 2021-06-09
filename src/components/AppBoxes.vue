@@ -31,6 +31,7 @@ export default class AppBoxes extends Vue {
   border-radius: 25px;
   box-shadow: 0 10px 12px #f9ab187a;
   background-color: white;
+  width: 600px;
 }
 
 .boxes {
