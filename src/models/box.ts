@@ -1,10 +1,10 @@
-import Item from "./item";
+import { Winnable } from "@/models/winnable";
 
 export default class Box {
-  item: Item;
+  winnable: Winnable;
   id = Math.random().toFixed(7).toString();
 
-  constructor(item: Item) {
-    this.item = item;
+  constructor(winnable: Winnable) {
+    this.winnable = winnable;
   }
 }

@@ -2,11 +2,13 @@
   <div class="background">
     <transition name="zoom">
       <div v-if="show" style="animation-duration: 200ms" class="content">
-        <p class="title">Congratulations!!</p>
-        <p class="prize">
-          {{ $store.state.boxes[$store.state.chosenBoxIndex].item.name }}
+        <p class="title text-4xl font-bold py-4">{{ title }}</p>
+        <p class="text-2xl">
+          {{ result }}
         </p>
-        <app-button @click="$store.commit('reset')">Play Again</app-button>
+        <app-button class="my-4" @click="$store.commit('reset')">{{
+          buttonText
+        }}</app-button>
       </div>
     </transition>
   </div>
@@ -15,6 +17,9 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import AppButton from "@/components/AppButton.vue";
+import { AppState } from "@/store/appStore";
+import Box from "@/models/box";
+import { WinnableType } from "@/models/winnable";
 
 @Component({
   name: "AppPopup",
@@ -22,6 +27,39 @@ import AppButton from "@/components/AppButton.vue";
 })
 export default class AppPopup extends Vue {
   show = false;
+
+  get title(): string {
+    switch (this.chosenBox?.winnable.type) {
+      case WinnableType.item:
+        return "Congratulations!!";
+      case WinnableType.nothing:
+        return "Uh oh... Not this Time!";
+      case WinnableType.tryAgain:
+        return "Cross Fingers and Try Again!";
+      default:
+        return "";
+    }
+  }
+
+  get chosenBox(): Box | null {
+    const { boxes, chosenBoxIndex } = this.$store.state as AppState;
+    if (chosenBoxIndex !== null) {
+      return boxes[chosenBoxIndex];
+    }
+    return null;
+  }
+
+  get result(): string {
+    if (this.chosenBox?.winnable.type === WinnableType.item)
+      return this.chosenBox.winnable.item!.name;
+    return "";
+  }
+
+  get buttonText(): string {
+    if (this.chosenBox?.winnable.type === WinnableType.tryAgain)
+      return "Try Again";
+    return "Go Back";
+  }
 
   mounted() {
     this.show = true;
@@ -31,15 +69,7 @@ export default class AppPopup extends Vue {
 
 <style scoped>
 .title {
-  font-size: 24pt;
   color: #f9ab18;
-  font-weight: bold;
-  margin: 24px 0;
-}
-
-.prize {
-  font-size: 18pt;
-  font-weight: bold;
 }
 
 .content {

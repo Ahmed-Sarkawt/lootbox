@@ -1,6 +1,6 @@
 <template>
   <button v-bind="$attrs" v-on="$listeners">
-    <span>
+    <span class="text-4xl">
       <slot />
     </span>
   </button>
@@ -19,7 +19,6 @@ button {
   padding-inline: 60px;
   background-color: #f9ab18;
   color: white;
-  font-size: 45pt;
   font-family: Jumpman;
   border-radius: 4px;
   border: none;

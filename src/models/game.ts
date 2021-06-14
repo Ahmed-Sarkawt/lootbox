@@ -1,6 +1,5 @@
-import { IWeightedPrizeProbabilityItem } from "./weightedPrizeProbabilityItem";
+import { IWinnable } from "./winnable";
 import Box from "./box";
-import Item from "./item";
 import { items } from "@/data/items";
 
 interface Playable {
@@ -8,10 +7,10 @@ interface Playable {
 }
 
 class Game implements Playable {
-  items: IWeightedPrizeProbabilityItem[];
+  winnables: IWinnable[];
   numberOfBoxes: number;
 
-  constructor(items: IWeightedPrizeProbabilityItem[], numberOfBoxes: number) {
+  constructor(items: IWinnable[], numberOfBoxes: number) {
     // The sum of all probability weights must equal 1
     const sum = items.reduce((acc, currentValue) => {
       acc += currentValue.probability;
@@ -24,7 +23,7 @@ class Game implements Playable {
       );
     }
 
-    this.items = items;
+    this.winnables = items;
     this.numberOfBoxes = numberOfBoxes;
   }
 
@@ -33,10 +32,10 @@ class Game implements Playable {
       const result = Math.random();
       let sum = 0;
 
-      for (const item of this.items) {
-        sum += item.probability;
+      for (const winnable of this.winnables) {
+        sum += winnable.probability;
         if (result <= sum) {
-          return new Box(new Item(item.name));
+          return new Box(winnable);
         }
       }
     });
