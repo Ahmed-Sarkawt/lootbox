@@ -1,12 +1,14 @@
 <template>
   <div class="background">
-    <div class="content">
-      <p class="title">Congratulations!!</p>
-      <p class="prize">
-        {{ $store.state.boxes[$store.state.chosenBoxIndex].item.name }}
-      </p>
-      <app-button @click="$store.commit('reset')">Play Again</app-button>
-    </div>
+    <transition name="zoom">
+      <div v-if="show" style="animation-duration: 200ms" class="content">
+        <p class="title">Congratulations!!</p>
+        <p class="prize">
+          {{ $store.state.boxes[$store.state.chosenBoxIndex].item.name }}
+        </p>
+        <app-button @click="$store.commit('reset')">Play Again</app-button>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -18,7 +20,13 @@ import AppButton from "@/components/AppButton.vue";
   name: "AppPopup",
   components: { AppButton },
 })
-export default class AppPopup extends Vue {}
+export default class AppPopup extends Vue {
+  show = false;
+
+  mounted() {
+    this.show = true;
+  }
+}
 </script>
 
 <style scoped>
@@ -49,7 +57,7 @@ export default class AppPopup extends Vue {}
   left: 0;
   height: 100vh;
   width: 100vw;
-  background-color: rgba(0, 0, 0, 0.34);
+  background-color: #00000021;
   display: flex;
   flex-direction: column;
 }

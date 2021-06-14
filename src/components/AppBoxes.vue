@@ -5,9 +5,10 @@
       <img
         v-for="(box, i) in $store.state.boxes"
         :key="box.id"
-        :src="require('../assets/gift-box.svg')"
-        class="box"
-        width="30%"
+        style="box-shadow: 6px 6px 12px #bcaa8617"
+        class="mx-3 my-1 p-6 rounded-2xl"
+        :src="icon"
+        width="25%%"
         alt="gift box"
         @click="$store.commit('choose', i)"
       />
@@ -20,6 +21,8 @@ import { Component, Vue } from "vue-property-decorator";
 
 @Component({ name: "AppBoxes" })
 export default class AppBoxes extends Vue {
+  icon = require("../assets/arabella-open.svg");
+
   mounted() {
     setTimeout(() => this.$store.commit("shuffle"), 200);
   }
@@ -29,7 +32,7 @@ export default class AppBoxes extends Vue {
 <style scoped>
 .window {
   border-radius: 25px;
-  box-shadow: 0 10px 12px #f9ab187a;
+  box-shadow: 0 12px 12px #f9ab187a;
   background-color: white;
   width: 600px;
 }

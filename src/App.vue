@@ -1,17 +1,20 @@
 <template>
   <div id="app">
     <app-bars style="position: absolute; width: 100%; z-index: -1" />
-    <div id="main">
-      <!--   The Welcome Screen   -->
-      <app-button
-        v-if="scene === AppScene.welcome"
-        @click="$store.commit('play')"
-      >
-        Play
-      </app-button>
+    <div id="main" class="inset-0">
+      <transition name="zoom">
+        <!--   The Welcome Screen   -->
+        <div
+          style="animation-duration: 200ms"
+          v-if="scene === AppScene.welcome"
+          class="absolute inset-0 flex justify-center items-center"
+        >
+          <app-button @click="$store.commit('play')"> Play </app-button>
+        </div>
 
-      <!--   The screen to make choices   -->
-      <app-boxes v-else />
+        <!--   The screen to make choices   -->
+        <app-boxes style="animation-duration: 200ms" v-else />
+      </transition>
 
       <!--         The screen to make choices   -->
       <app-popup v-if="scene === AppScene.choiceMade" />
@@ -46,25 +49,29 @@ export default class App extends Vue {
 }
 </script>
 
-<style>
+<style scoped>
 body {
   margin: 0;
 }
 
 #app {
-  font-family: "Segoe UI", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-  height: 100vh;
+  /*font-family: "Segoe UI", Helvetica, Arial, sans-serif;*/
+  /*-webkit-font-smoothing: antialiased;*/
+  /*-moz-osx-font-smoothing: grayscale;*/
+  /*color: #2c3e50;*/
+  /*height: 100vh;*/
+}
+
+.center {
+  position: relative;
+  top: 50%;
+  left: 50%;
 }
 
 #main {
+  position: absolute;
   display: flex;
-  flex-direction: column;
-  height: 100%;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
 }
 </style>

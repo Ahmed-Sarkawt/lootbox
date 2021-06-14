@@ -2,6 +2,7 @@ import Vue from "vue";
 import App from "./App.vue";
 import Vuex from "vuex";
 import { AppStore } from "@/store/appStore";
+import "./assets/tailwind.css";
 
 Vue.config.productionTip = false;
 Vue.use(Vuex);
