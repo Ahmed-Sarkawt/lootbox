@@ -50,6 +50,21 @@ export default class App extends Vue {
 </script>
 
 <style scoped>
+@font-face {
+  font-family: "Jumpman";
+  src: url("//db.onlinewebfonts.com/t/f914df4ab04b1d0f7bc111ba379233fc.eot");
+  src: url("//db.onlinewebfonts.com/t/f914df4ab04b1d0f7bc111ba379233fc.eot?#iefix")
+      format("embedded-opentype"),
+    url("//db.onlinewebfonts.com/t/f914df4ab04b1d0f7bc111ba379233fc.woff2")
+      format("woff2"),
+    url("//db.onlinewebfonts.com/t/f914df4ab04b1d0f7bc111ba379233fc.woff")
+      format("woff"),
+    url("//db.onlinewebfonts.com/t/f914df4ab04b1d0f7bc111ba379233fc.ttf")
+      format("truetype"),
+    url("//db.onlinewebfonts.com/t/f914df4ab04b1d0f7bc111ba379233fc.svg#Jumpman")
+      format("svg");
+}
+
 body {
   margin: 0;
 }
