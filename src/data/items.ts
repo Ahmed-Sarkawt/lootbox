@@ -16,5 +16,5 @@ export const items: IWinnable[] = [
   
 
   new Winnable(WinnableType.tryAgain, 0.15),
-  new Winnable(WinnableType.nothing, 0.15,
+  new Winnable(WinnableType.nothing, 0.15),
 ];
